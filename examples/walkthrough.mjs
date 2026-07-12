@@ -1,4 +1,5 @@
-// Epinu MCP walkthrough — the full agent flow: search → propose → HUMAN approves.
+// Epinu MCP walkthrough — the agent-controlled flow: search → propose → track.
+// (Human approval happens separately, in the Epinu dashboard.)
 //
 // Zero dependencies. Node >= 18 (built-in fetch).
 //
@@ -9,8 +10,8 @@
 // touches the database. It creates a *proposal* (status: pending) and returns an
 // approval_url. A human reviews and approves it in the Epinu dashboard — only then
 // does the listing exist. Every proposal is audited with the agent's identity.
-// See examples/walkthrough.md for a recorded transcript of the full loop,
-// including the human-approval moment.
+// See examples/walkthrough.md for recorded anonymous output plus an
+// illustrative, redacted explanation of the proposal and approval flow.
 
 const MCP = process.env.EPINU_MCP_URL || 'https://api.epinu.ai/api/agent/mcp';
 const TOKEN = process.env.EPINU_AGENT_TOKEN;
@@ -68,7 +69,7 @@ ANONYMOUS on Epinu. To run the propose→approve loop yourself:
   1. Create an account:            https://epinu.ai/signup
   2. Dashboard → Settings → Authorize Agent → copy the epagt_ token
   3. EPINU_AGENT_TOKEN=epagt_... node examples/walkthrough.mjs
-See walkthrough.md for a recorded transcript of steps 3-5.`);
+See walkthrough.md for sample output and an explanation of steps 3-5.`);
   process.exit(0);
 }
 

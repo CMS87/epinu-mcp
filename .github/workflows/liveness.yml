@@ -25,16 +25,17 @@ jobs:
         run: bash examples/quickstart.sh
       - name: Run walkthrough (anonymous leg, zero-dep Node)
         run: node examples/walkthrough.mjs
-      - name: TOOLS.md drift check (anonymous tool names must match live tools/list)
+      - name: TOOLS.md drift check (exact set — both directions)
+        shell: bash
         run: |
-          LIVE=$(curl -sS --max-time 30 -X POST https://api.epinu.ai/api/agent/mcp \
+          set -euo pipefail
+          curl -sS --max-time 30 -X POST https://api.epinu.ai/api/agent/mcp \
             -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
             -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
-            | python3 -c 'import json,sys; [print(t["name"]) for t in json.load(sys.stdin)["result"]["tools"]]')
-          echo "live anonymous tools:"; echo "$LIVE"
-          FAIL=0
-          for t in $LIVE; do grep -q "$t" TOOLS.md || { echo "::error::$t is live but missing from TOOLS.md"; FAIL=1; }; done
-          for t in getting_started marketplace_listings_search projects_search; do
-            echo "$LIVE" | grep -q "^$t$" || { echo "::error::$t documented in TOOLS.md but no longer live"; FAIL=1; }
-          done
-          exit $FAIL
+            | python3 -c 'import json,sys; [print(t["name"]) for t in json.load(sys.stdin)["result"]["tools"]]' \
+            | sort -u > /tmp/live-tools.txt
+          python3 -c 'import re,pathlib; s=pathlib.Path("TOOLS.md").read_text().split("## Tools",1)[1]; [print(n) for n in re.findall(r"^### `([^`]+)`", s, re.M)]' \
+            | sort -u > /tmp/documented-tools.txt
+          echo "live:"; cat /tmp/live-tools.txt
+          echo "documented:"; cat /tmp/documented-tools.txt
+          diff -u /tmp/documented-tools.txt /tmp/live-tools.txt

@@ -67,10 +67,12 @@ Epinu's write tools (`marketplace_listing_create`, `project_create`, …) do
 and return an `approval_url`. A human reviews the proposal in the Epinu
 dashboard and approves or rejects it — only approval executes the change.
 
-[`examples/walkthrough.mjs`](examples/walkthrough.mjs) runs this full loop:
-search → propose → human approves. [`examples/walkthrough.md`](examples/walkthrough.md)
-walks through it with sample output (anonymous leg recorded from production; the
-proposal-leg transcript will be replaced with a full production recording).
+[`examples/walkthrough.mjs`](examples/walkthrough.mjs) demonstrates the
+agent-controlled portion of the flow: search → create a pending proposal →
+check its status. Human approval happens separately in the Epinu dashboard.
+[`examples/walkthrough.md`](examples/walkthrough.md) walks through it with
+sample output (anonymous leg recorded from production; the proposal-leg
+transcript will be replaced with a full production recording).
 
 ### Why is every write human-approved?
 
@@ -91,10 +93,10 @@ proposal-leg transcript will be replaced with a full production recording).
   agent can't get a stale change approved.
 - Unapproved proposals expire on their own (7 days).
 
-**Production proof:** Epinu's first external marketplace participant was
-onboarded through a delegated AI agent — the agent prepared the catalog
-proposals; the account owner reviewed and approved each one from the
-dashboard. (Sanitized case study forthcoming.)
+**Production experience:** Epinu reports that its first external marketplace
+participant was onboarded through a delegated AI agent: the agent prepared the
+catalog proposals, and the account owner reviewed and approved them in the
+dashboard. A sanitized case study is forthcoming.
 
 ## Getting a token (for writes)
 
@@ -111,7 +113,7 @@ dashboard. (Sanitized case study forthcoming.)
 | --- | --- |
 | [`server.json`](server.json) | The MCP Registry entry for `ai.epinu/epinu` |
 | [`examples/quickstart.sh`](examples/quickstart.sh) | Anonymous tier in 60 seconds (curl) |
-| [`examples/walkthrough.mjs`](examples/walkthrough.mjs) | Full search → propose → human-approve loop (Node, zero deps) |
+| [`examples/walkthrough.mjs`](examples/walkthrough.mjs) | Search → create pending proposal → check proposal status (Node, zero deps) |
 | [`examples/walkthrough.md`](examples/walkthrough.md) | Explanation and sample output for the propose-and-approve loop |
 | [`examples/claude-code.md`](examples/claude-code.md) | Connect from Claude Code / `.mcp.json` |
 | [`TOOLS.md`](TOOLS.md) | Anonymous-tier tool reference with captured responses |
