@@ -22,9 +22,10 @@ in the official MCP Registry) and the runnable examples.
 bash examples/quickstart.sh
 ```
 
-That hits the **live production endpoint** anonymously and returns real
-inventory: dielectric safety gloves in Caracas, an ASIC repair center in
-Odessa TX, hashboard diagnosis services. The anonymous tier allows
+That queries the **live public production endpoint** anonymously —
+listings like dielectric safety gloves in Caracas, an ASIC repair center in
+Odessa TX, hashboard diagnosis services. (The catalog is early-stage and may
+still include demonstration records.) The anonymous tier allows
 `initialize`, `tools/list`, and three read tools (`getting_started`,
 `marketplace_listings_search`, `projects_search`) against public data —
 see [TOOLS.md](TOOLS.md) for the reference.
