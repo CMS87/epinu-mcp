@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.epinu/epinu",
+  "description": "Agent-first marketplace for industrial assets & livestock medianería; humans approve every write.",
+  "version": "1.0.2",
+  "websiteUrl": "https://epinu.ai",
+  "repository": {
+    "url": "https://github.com/CMS87/epinu-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.epinu.ai/api/agent/mcp"
+    }
+  ]
+}
