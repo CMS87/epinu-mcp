@@ -70,9 +70,9 @@ dashboard and approves or rejects it — only approval executes the change.
 [`examples/walkthrough.mjs`](examples/walkthrough.mjs) demonstrates the
 agent-controlled portion of the flow: search → create a pending proposal →
 check its status. Human approval happens separately in the Epinu dashboard.
-[`examples/walkthrough.md`](examples/walkthrough.md) walks through it with
-sample output (anonymous leg recorded from production; the proposal-leg
-transcript will be replaced with a full production recording).
+[`examples/walkthrough.md`](examples/walkthrough.md) is the recorded,
+redacted transcript of a real production run — including the pending proposal
+and its field-level review diff.
 
 ### Why is every write human-approved?
 
@@ -114,7 +114,7 @@ dashboard. A sanitized case study is forthcoming.
 | [`server.json`](server.json) | The MCP Registry entry for `ai.epinu/epinu` |
 | [`examples/quickstart.sh`](examples/quickstart.sh) | Anonymous tier in 60 seconds (curl) |
 | [`examples/walkthrough.mjs`](examples/walkthrough.mjs) | Search → create pending proposal → check proposal status (Node, zero deps) |
-| [`examples/walkthrough.md`](examples/walkthrough.md) | Explanation and sample output for the propose-and-approve loop |
+| [`examples/walkthrough.md`](examples/walkthrough.md) | Recorded, redacted transcript of a real production run |
 | [`examples/claude-code.md`](examples/claude-code.md) | Connect from Claude Code / `.mcp.json` |
 | [`TOOLS.md`](TOOLS.md) | Anonymous-tier tool reference with captured responses |
 | [`SECURITY.md`](SECURITY.md) | How to report a vulnerability |

@@ -4,7 +4,7 @@ Epinu operates a hosted MCP endpoint (`https://api.epinu.ai/api/agent/mcp`).
 
 **Please do not report security vulnerabilities through public issues.**
 
-Contact: **info@epinu.ai** (subject line starting with `SECURITY:`)
+Contact: **security@epinu.ai**
 
 Include:
 

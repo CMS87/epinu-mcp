@@ -1,10 +1,10 @@
 # Walkthrough: an agent proposes, a human approves
 
-This document combines a **real recorded transcript** of the anonymous leg of
-[`walkthrough.mjs`](walkthrough.mjs) against the live production endpoint with
-an **illustrative, redacted proposal flow**. The proposal section will be
-replaced with a complete production transcript once the demonstrative run is
-recorded with a delegated `epagt_` token.
+This is a **recorded transcript of a real run** of
+[`walkthrough.mjs`](walkthrough.mjs) against the live production endpoint —
+anonymous leg first, then the propose leg with a delegated `epagt_` token
+(2026-07-12; token, account identifiers, and emails redacted). Nothing here
+is mocked.
 
 ## The read leg (anonymous — run it yourself right now)
 
@@ -38,29 +38,69 @@ $ node examples/walkthrough.mjs
 Live public catalog results from the production endpoint, no credentials. Etiquette from `getting_started`: always
 check for duplicates *before* proposing a create.
 
-## The propose leg (delegated token)
+## The propose leg (delegated token) — recorded
 
-With `EPINU_AGENT_TOKEN` set, the same script continues:
+With `EPINU_AGENT_TOKEN` set, the same script continues (real output, redacted):
 
 ```console
 ── 3. whoami ───────────────────────────────────────────────────
-(agent identity, scopes and restrictions — never secrets)
+{
+  "owner_user_id": "[REDACTED]",
+  "owner_email": "[REDACTED]",
+  "agent_client_id": "Ms",
+  "scopes": [
+    "projects:read",
+    "marketplace:read",
+    "marketplace:listing:create",
+    "..."
+  ],
+  "constraints": {
+    "agent_surface": "personal_agent",
+    "approval_required": true,
+    "allow_direct_execution": false
+  }
+}
 
 ── 4. marketplace_listing_create → PROPOSAL (not a listing yet!)
 {
-  "proposal_id": "…",
+  "proposalId": "1aeb2574-[REDACTED]",
   "status": "pending",
-  "approval_url": "https://epinu.ai/dashboard/proposals/…",
-  …
+  "expiresAt": "2026-07-19T22:21:32.260Z",
+  "approval_url": "/dashboard/proposals/1aeb2574-[REDACTED]",
+  "message": "Marketplace listing proposal created. Awaiting human approval."
 }
 
    >>> Nothing was written. A human must now open:
-   >>> https://epinu.ai/dashboard/proposals/…
+   >>> /dashboard/proposals/1aeb2574-[REDACTED]
    >>> and approve or reject this proposal in the dashboard.
+
+── 5. proposals_list_my ────────────────────────────────────────
+{
+  "proposals": [
+    {
+      "proposalId": "1aeb2574-[REDACTED]",
+      "type": "marketplace_listing.create",
+      "status": "pending",
+      "summary": {
+        "diff": {
+          "type": "create",
+          "fields": [
+            { "field": "category",    "before": null, "after": "service" },
+            { "field": "title",       "before": null, "after": "Veterinary weigh-in & herd verification visit — medianería record-keeping" },
+            { "field": "pricing_mode","before": null, "after": "quote" }
+          ]
+        }
+      }
+    }
+  ]
+}
+
+Done. The proposal stays pending until a human decides (expires in 7 days).
 ```
 
-<!-- TRANSCRIPT-PENDING: replace the propose-leg block above with the real
-     recorded output once run with a test agent token. -->
+Note what the response makes visible: the write became a **pending proposal
+with a field-level diff** for the human to review — `allow_direct_execution`
+is `false` on the token itself, and the constraint is enforced server-side.
 
 ## The approval moment
 
