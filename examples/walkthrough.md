@@ -1,8 +1,10 @@
 # Walkthrough: an agent proposes, a human approves
 
-This is a recorded transcript of [`walkthrough.mjs`](walkthrough.mjs) against
-the live production endpoint. The read leg is anonymous; the propose leg uses
-a delegated `epagt_` token. Nothing here is mocked.
+This document combines a **real recorded transcript** of the anonymous leg of
+[`walkthrough.mjs`](walkthrough.mjs) against the live production endpoint with
+an **illustrative, redacted proposal flow**. The proposal section will be
+replaced with a complete production transcript once the demonstrative run is
+recorded with a delegated `epagt_` token.
 
 ## The read leg (anonymous — run it yourself right now)
 
@@ -33,7 +35,7 @@ $ node examples/walkthrough.mjs
 }
 ```
 
-Real inventory, no credentials. Etiquette from `getting_started`: always
+Live public catalog results from the production endpoint, no credentials. Etiquette from `getting_started`: always
 check for duplicates *before* proposing a create.
 
 ## The propose leg (delegated token)

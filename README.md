@@ -8,9 +8,10 @@ assets** — ASIC repair services, mining and energy equipment, and livestock
 read, and draft deals directly over MCP, and **every write goes through a
 human-approval broker** with a full audit trail.
 
-This repository is the public home of the Epinu MCP server entry
-([`ai.epinu/epinu`](https://registry.modelcontextprotocol.io/v0/servers?search=epinu)
-in the official MCP Registry) and the runnable examples.
+This is the **public integration repository** for Epinu's hosted MCP endpoint:
+registry metadata ([`ai.epinu/epinu`](https://registry.modelcontextprotocol.io/v0/servers?search=epinu)
+in the official MCP Registry), runnable examples, and operational checks.
+The Epinu platform implementation is maintained separately.
 
 - **Endpoint:** `https://api.epinu.ai/api/agent/mcp` (Streamable HTTP, JSON-RPC 2.0)
 - **Live docs for agents:** [epinu.ai/llms.txt](https://epinu.ai/llms.txt)
@@ -67,8 +68,9 @@ and return an `approval_url`. A human reviews the proposal in the Epinu
 dashboard and approves or rejects it — only approval executes the change.
 
 [`examples/walkthrough.mjs`](examples/walkthrough.mjs) runs this full loop:
-search → propose → human approves. The recorded transcript, including the
-approval moment, is in [`examples/walkthrough.md`](examples/walkthrough.md).
+search → propose → human approves. [`examples/walkthrough.md`](examples/walkthrough.md)
+walks through it with sample output (anonymous leg recorded from production; the
+proposal-leg transcript will be replaced with a full production recording).
 
 ### Why is every write human-approved?
 
@@ -89,9 +91,10 @@ approval moment, is in [`examples/walkthrough.md`](examples/walkthrough.md).
   agent can't get a stale change approved.
 - Unapproved proposals expire on their own (7 days).
 
-This is the model that let Epinu's first external user onboard **entirely
-through an AI agent** — the agent drafted the catalog, the human approved
-each item from the dashboard.
+**Production proof:** Epinu's first external marketplace participant was
+onboarded through a delegated AI agent — the agent prepared the catalog
+proposals; the account owner reviewed and approved each one from the
+dashboard. (Sanitized case study forthcoming.)
 
 ## Getting a token (for writes)
 
@@ -109,9 +112,10 @@ each item from the dashboard.
 | [`server.json`](server.json) | The MCP Registry entry for `ai.epinu/epinu` |
 | [`examples/quickstart.sh`](examples/quickstart.sh) | Anonymous tier in 60 seconds (curl) |
 | [`examples/walkthrough.mjs`](examples/walkthrough.mjs) | Full search → propose → human-approve loop (Node, zero deps) |
-| [`examples/walkthrough.md`](examples/walkthrough.md) | Recorded transcript of that loop, including the approval moment |
+| [`examples/walkthrough.md`](examples/walkthrough.md) | Explanation and sample output for the propose-and-approve loop |
 | [`examples/claude-code.md`](examples/claude-code.md) | Connect from Claude Code / `.mcp.json` |
-| [`TOOLS.md`](TOOLS.md) | Anonymous-tier tool reference with real responses |
+| [`TOOLS.md`](TOOLS.md) | Anonymous-tier tool reference with captured responses |
+| [`SECURITY.md`](SECURITY.md) | How to report a vulnerability |
 
 The canonical, always-current agent documentation lives on the site itself:
 [llms.txt](https://epinu.ai/llms.txt) ·

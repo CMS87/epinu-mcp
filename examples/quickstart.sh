@@ -35,7 +35,7 @@ rpc '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}' \
   | python3 -c 'import json,sys; [print(" -", t["name"], "—", t.get("description","")[:80]) for t in json.load(sys.stdin)["result"]["tools"]]'
 
 echo
-echo '── 3. marketplace_listings_search — real industrial inventory ─'
+echo '── 3. marketplace_listings_search — live public catalog ───────'
 rpc '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"marketplace_listings_search","arguments":{"query":"ASIC repair"}}}' | tool_text
 
 echo
