@@ -71,8 +71,8 @@ dashboard and approves or rejects it — only approval executes the change.
 agent-controlled portion of the flow: search → create a pending proposal →
 check its status. Human approval happens separately in the Epinu dashboard.
 [`examples/walkthrough.md`](examples/walkthrough.md) is the recorded,
-redacted transcript of a real production run — including the pending proposal
-and its field-level review diff.
+redacted transcript of a real production run — proposal created, reviewed,
+and rejected by the human, with nothing ever written.
 
 ### Why is every write human-approved?
 

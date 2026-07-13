@@ -102,13 +102,23 @@ Note what the response makes visible: the write became a **pending proposal
 with a field-level diff** for the human to review — `allow_direct_execution`
 is `false` on the token itself, and the constraint is enforced server-side.
 
-## The approval moment
+## The decision moment — recorded
 
-The proposal shows up in the owner's dashboard with everything the human
-needs to decide: what the agent wants to create, every field, which agent
-proposed it, and when it expires. One click approves (the listing goes live)
-or rejects (nothing ever existed). If the underlying data changed since the
-proposal was made, approval is drift-blocked until the human explicitly
+The proposal showed up in the owner's dashboard with everything the human
+needed to decide: every field the agent wanted to create, which agent
+proposed it, and when it would expire. In this run the owner clicked
+**reject**, and `proposals_list_my` recorded the flip:
+
+```console
+── proposals_list_my (after the human decided) ─────────────────
+1aeb2574 marketplace_listing.create → cancelled
+```
+
+**Nothing was ever written to the marketplace.** That is the model working:
+the agent did everything except the one thing that matters, and the human's
+"no" cost one click. Approval works the same way — one click, the proposal
+executes, and the listing goes live. If the underlying data changed since
+the proposal was made, approval is drift-blocked until the human explicitly
 acknowledges the change.
 
 ```console
