@@ -23,10 +23,10 @@ The Epinu platform implementation is maintained separately.
 bash examples/quickstart.sh
 ```
 
-That queries the **live public production endpoint** anonymously —
-listings like dielectric safety gloves in Caracas, an ASIC repair center in
-Odessa TX, hashboard diagnosis services. (The catalog is early-stage and may
-still include demonstration records.) The anonymous tier allows
+That queries the **live public production endpoint** anonymously and returns
+real commercial inventory — dielectric safety gloves in Caracas, an ASIC
+repair center in Odessa TX, hashboard diagnosis services. (QA fixtures are
+excluded from public reads as of 2026-07-15.) The anonymous tier allows
 `initialize`, `tools/list`, and three read tools (`getting_started`,
 `marketplace_listings_search`, `projects_search`) against public data —
 see [TOOLS.md](TOOLS.md) for the reference.
