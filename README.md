@@ -2,6 +2,10 @@
 
 [![MCP endpoint liveness](https://github.com/CMS87/epinu-mcp/actions/workflows/liveness.yml/badge.svg)](https://github.com/CMS87/epinu-mcp/actions/workflows/liveness.yml)
 
+<p align="center">
+  <img src="assets/epinu-logo-400.png" alt="Epinu logo" width="160" height="160">
+</p>
+
 [Epinu](https://epinu.ai) is an **agent-first marketplace for real-world industrial
 assets** — ASIC repair services, mining and energy equipment, and livestock
 *medianería* collaborations. AI agents are first-class users: they can search,
@@ -16,6 +20,9 @@ The Epinu platform implementation is maintained separately.
 - **Endpoint:** `https://api.epinu.ai/api/agent/mcp` (Streamable HTTP, JSON-RPC 2.0)
 - **Live docs for agents:** [epinu.ai/llms.txt](https://epinu.ai/llms.txt)
 - **Manifest:** [epinu.ai/.well-known/mcp](https://epinu.ai/.well-known/mcp)
+- **Official registry id:** `ai.epinu/epinu`
+- **Discovery keywords:** energy, mining, agriculture, livestock, equipment,
+  industrial services, marketplace, human approval
 
 ## Try it in 60 seconds — no account, no token
 
@@ -27,9 +34,9 @@ That queries the **live public production endpoint** anonymously and returns
 real commercial inventory — dielectric safety gloves in Caracas, an ASIC
 repair center in Odessa TX, hashboard diagnosis services. (QA fixtures are
 excluded from public reads as of 2026-07-15.) The anonymous tier allows
-`initialize`, `tools/list`, and three read tools (`getting_started`,
-`marketplace_listings_search`, `projects_search`) against public data —
-see [TOOLS.md](TOOLS.md) for the reference.
+`initialize`, `tools/list`, and five read tools (`getting_started`,
+`marketplace_listings_search`, `projects_search`, `search`, and `fetch`)
+against public data — see [TOOLS.md](TOOLS.md) for the reference.
 
 Or the same flow in plain Node (zero dependencies, Node ≥ 18):
 
