@@ -2,12 +2,13 @@
 
 The Epinu MCP endpoint (`https://api.epinu.ai/api/agent/mcp`) accepts
 unauthenticated JSON-RPC for the protocol methods `initialize` and
-`tools/list`, plus three read tools against public data. Rate limit:
+`tools/list`, plus five read tools against public data. Rate limit:
 60 requests/minute per client. Everything else requires a delegated
-`epagt_` bearer token (19 tools total with auth — `tools/list` with your
-token shows exactly what your scopes allow).
+`epagt_` bearer token; `tools/list` with your token shows exactly what its
+scopes allow.
 
-All responses below are real (captured from production 2026-07-12, trimmed).
+All responses below are real (existing examples captured from production
+2026-07-12; `search` and `fetch` examples captured 2026-07-29; trimmed).
 
 ## Protocol methods
 
@@ -34,13 +35,15 @@ All responses below are real (captured from production 2026-07-12, trimmed).
 
 ### `tools/list`
 
-Anonymous, returns the three public tools. With a token, returns every tool
+Anonymous, returns the five public tools. With a token, returns every tool
 your scopes allow.
 
 ## Tools
 
-Tool results arrive MCP-style: the payload is JSON inside
-`result.content[0].text` (and mirrored in `structuredContent`).
+Successful tool results arrive MCP-style: the payload is JSON inside
+`result.content[0].text` (and mirrored in `structuredContent`). Error results
+may instead put a plain-language message in `content[0].text` and structured
+details in `structuredContent`.
 
 ### `getting_started` — no arguments
 
@@ -112,9 +115,10 @@ earlier ones). Call it first — it is the canonical contract.
 
 ### `search`
 
-Additive alias over `projects_search` and `marketplace_listings_search` —
-one unified read across both, shaped for deep-research clients. Returns
-only `{ id, title, url }`; pass an `id` to `fetch` for the full document.
+Unified read-only view over `projects_search` and
+`marketplace_listings_search` (additive — the original tools remain). It
+provides a paired discovery/detail interface: `search` returns only
+`{ id, title, url }`; pass an `id` to `fetch` for the full public document.
 
 | argument | type | notes |
 | --- | --- | --- |
@@ -146,13 +150,13 @@ platform a hit came from.
 
 ### `fetch`
 
-Fetches the full document for one `search` result. Wraps
+Fetches the full public document for one `search` result. Wraps
 `projects_get_deep_dive` and `marketplace_listing_get`. Unknown or
-malformed ids return a clean not-found, not an error.
+malformed ids return a not-found tool result with `isError: true`.
 
 | argument | type | notes |
 | --- | --- | --- |
-| `id` | string | opaque id from `search` — `project:<uuid>` or `listing:<uuid>`, required |
+| `id` | string | opaque id from `search` — `project:<uuid>` or `listing:<uuid>`, 1–120 chars, required |
 
 ```json
 {"name":"fetch","arguments":{"id":"listing:f7edbcad-ecbc-46d0-a8f6-162fc8219089"}}
@@ -175,10 +179,29 @@ malformed ids return a clean not-found, not an error.
 }
 ```
 
+A malformed id returns a tool error rather than a top-level JSON-RPC protocol
+error. This is the captured value of the envelope's `result` field:
+
+```json
+{"name":"fetch","arguments":{"id":"bogus"}}
+```
+
+```json
+{
+  "content": [{ "type": "text", "text": "Resource not found." }],
+  "structuredContent": {
+    "error": "Resource not found.",
+    "errorClass": null,
+    "statusCode": 404
+  },
+  "isError": true
+}
+```
+
 ## Beyond anonymous
 
 With an `epagt_` token the same endpoint exposes identity (`whoami`),
-deep reads, and the proposal tools (`marketplace_listing_create`,
+additional scoped read tools, and the proposal tools (`marketplace_listing_create`,
 `project_create`, `proposals_list_my`, …). Writes **never execute
 directly** — see the [README](README.md#the-interesting-part-writes-never-execute)
 and [examples/walkthrough.md](examples/walkthrough.md).
