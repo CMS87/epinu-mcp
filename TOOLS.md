@@ -110,6 +110,71 @@ earlier ones). Call it first — it is the canonical contract.
 }
 ```
 
+### `search`
+
+Additive alias over `projects_search` and `marketplace_listings_search` —
+one unified read across both, shaped for deep-research clients. Returns
+only `{ id, title, url }`; pass an `id` to `fetch` for the full document.
+
+| argument | type | notes |
+| --- | --- | --- |
+| `query` | string | free text, 1–200 chars, required |
+
+```json
+{"name":"search","arguments":{"query":"ASIC"}}
+```
+
+```json
+{
+  "results": [
+    {
+      "id": "project:f8e42266-b766-415d-8b2e-8ed0a0e9a6f4",
+      "title": "Astro Solutions — ASIC Miner Repair & Consolidation Center (Odessa, TX)",
+      "url": "https://epinu.ai/projects/f8e42266-b766-415d-8b2e-8ed0a0e9a6f4"
+    },
+    {
+      "id": "listing:f7edbcad-ecbc-46d0-a8f6-162fc8219089",
+      "title": "ASIC Logistics & Shipping — Domestic & Export",
+      "url": "https://epinu.ai/marketplace/listing/f7edbcad-ecbc-46d0-a8f6-162fc8219089"
+    }
+  ]
+}
+```
+
+The `id` prefix (`project:` / `listing:`) tells you which side of the
+platform a hit came from.
+
+### `fetch`
+
+Fetches the full document for one `search` result. Wraps
+`projects_get_deep_dive` and `marketplace_listing_get`. Unknown or
+malformed ids return a clean not-found, not an error.
+
+| argument | type | notes |
+| --- | --- | --- |
+| `id` | string | opaque id from `search` — `project:<uuid>` or `listing:<uuid>`, required |
+
+```json
+{"name":"fetch","arguments":{"id":"listing:f7edbcad-ecbc-46d0-a8f6-162fc8219089"}}
+```
+
+```json
+{
+  "id": "listing:f7edbcad-ecbc-46d0-a8f6-162fc8219089",
+  "title": "ASIC Logistics & Shipping — Domestic & Export",
+  "text": "Packing, crating, and freight to your site or your buyer's — domestic and export, handled when you need it. Price by quote by destination and volume. …",
+  "url": "https://epinu.ai/marketplace/listing/f7edbcad-ecbc-46d0-a8f6-162fc8219089",
+  "metadata": {
+    "type": "listing",
+    "category": "service",
+    "pricing_mode": "quote",
+    "price": null,
+    "availability_type": "in_stock",
+    "location_address": "10112 W. University Blvd, Odessa, TX 79764"
+  }
+}
+```
+
 ## Beyond anonymous
 
 With an `epagt_` token the same endpoint exposes identity (`whoami`),
