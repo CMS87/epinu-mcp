@@ -24,11 +24,13 @@ bash examples/quickstart.sh
 ```
 
 That queries the **live public production endpoint** anonymously and returns
-real commercial inventory — dielectric safety gloves in Caracas, an ASIC
-repair center in Odessa TX, hashboard diagnosis services. (QA fixtures are
-excluded from public reads as of 2026-07-15.) The anonymous tier allows
-`initialize`, `tools/list`, and three read tools (`getting_started`,
-`marketplace_listings_search`, `projects_search`) against public data —
+current public project and marketplace results. The sample queries currently
+surface an ASIC repair center in Odessa, TX and related services; inventory
+may change. (QA fixtures are excluded from public reads as of 2026-07-15.) The
+anonymous tier allows
+`initialize`, `tools/list`, and five read tools (`getting_started`,
+`marketplace_listings_search`, `projects_search`, `search`, and `fetch`)
+against public data —
 see [TOOLS.md](TOOLS.md) for the reference.
 
 Or the same flow in plain Node (zero dependencies, Node ≥ 18):

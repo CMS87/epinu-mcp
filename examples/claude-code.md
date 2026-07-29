@@ -7,7 +7,8 @@ claude mcp add --transport http epinu https://api.epinu.ai/api/agent/mcp
 ```
 
 That's it for read-only: `initialize`, `tools/list`, `getting_started`,
-`marketplace_listings_search`, and `projects_search` work with no credentials.
+`marketplace_listings_search`, `projects_search`, `search`, and `fetch` work
+with no credentials.
 
 Then just ask:
 
